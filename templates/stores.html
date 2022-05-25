@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Moirant | Ürün
+Ekle {% endblock %} {% block content %}
+
+<div class="store-view">
+  {% for store in stores %}
+  <div class="sales store">
+    <div class="vendor-left">
+      <div class="lef">
+        <h2>{{ store.name }}</h2>
+      </div>
+      <div class="progress">
+        <svg>
+          <circle cx="38" cy="38" r="36"></circle>
+        </svg>
+        <div class="number">
+          <p>81%</p>
+        </div>
+      </div>
+    </div>
+    <!-- --------------END OF LEFT---------------- -->
+    <div class="vendor-details">
+      <div class="sub-title">
+        <div class="icon">
+          <span class="material-icons-sharp">format_align_left </span>
+        </div>
+        <h2>Detaylar:</h2>
+      </div>
+      <p>{{ vendor.desc }}</p>
+
+      <div class="sub-title">
+        <div class="icon" style="background-color: var(--color-warning)">
+          <span class="material-icons-sharp">location_on</span>
+        </div>
+        <h2>Adress:</h2>
+      </div>
+      <p>{{ vendor.address }}</p>
+    </div>
+    <!-- --------------END OF MIDDLE---------------- -->
+    <div class="store-bottom">
+      <a
+        class="add-product square pending"
+        title="Yönet"
+        href="{% url 'store_control:detail_url' store.name %}"
+      >
+        <span class="material-icons-sharp">pending_actions</span>Yönet
+      </a>
+    </div>
+    <!-- --------------END OF RIGHT---------------- -->
+  </div>
+  {% endfor %}
+</div>
+
+{% block additional_scripts %} {% endblock %} {% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Moirant | Ürün
+Ekle {% endblock %} {% block content %}
+
+<h1>{{ store.name }} Ürünleri:</h1>
+<div class="summary">
+  <a
+    class="add-product"
+    href="{% url 'store_control:add_to_store' name=store.name  %}"
+  >
+    <span class="material-icons-sharp">add</span>
+  </a>
+  {% if messages %} {% for message in messages %}
+  <h2 class="success">{{ message }}</h2>
+  {% endfor %} {% endif %}
+  <h2>Toplam Ürün Sayısı : &nbsp;{{ item_size }}</h2>
+</div>
+<div class="item-view">
+  {% for item in items %}
+  <div class="sales">
+    <span class="material-icons-sharp">inventory_2</span>
+
+    <span
+      class="material-icons-sharp editing-icon"
+      style="color: var(--color-primary)"
+      >edit</span
+    >
+
+    <div class="middle">
+      <div class="lef">
+        <h3>{{item.name}}</h3>
+        <h1>
+          {{item.quantity}}/{{item.cost}}₺
+          <a href="#popup1"
+            ><span class="material-icons-sharp editing-icon danger"
+              >delete</span
+            >
+          </a>
+        </h1>
+      </div>
+      <div class="progress">
+        <div class="number">
+          <p>{{item.item_id}}</p>
+        </div>
+      </div>
+    </div>
+    <small class="text-muted">{{ item.category.category }}</small>
+  </div>
+  {% endfor %}
+</div>
+<div id="popup1" class="overlay">
+  <div class="popup">
+    <h2>Onayla</h2>
+    <a class="close" href="#">&times;</a>
+    <div class="content">
+      Bu ürünü silmek istediğinizden emin misiniz?
+      <input href="#" type="submit" method="POST" value="Onayla" />
+    </div>
+  </div>
+</div>
+{% endblock %} {% block additional_scripts %} {% endblock %}

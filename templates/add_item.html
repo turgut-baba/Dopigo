@@ -1,0 +1,98 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Moirant | Ürün
+Ekle {% endblock %} {% block content %}
+<h1>{{store.name}} Yeni Ürün Ekle</h1>
+<a href="{% url 'store_control:detail_url' name=store.name %}" class="back"
+  ><span class="material-icons-sharp">arrow_back</span> Geri</a
+>
+<div class="add-area">
+  <div class="form-area">
+    <form method="POST">
+      {% csrf_token %}
+      <h2>İsim:</h2>
+      <input
+        type="text"
+        placeholder="Ürün adı"
+        requiered
+        id="Item_name"
+        name="name"
+        value=""
+      />
+      <h2>Miktar:</h2>
+      <input
+        type="number"
+        placeholder="Miktar"
+        requiered
+        id="Quantity"
+        name="quantity"
+        value=""
+      />
+      <h2>Maliyet:</h2>
+      <input
+        type="number"
+        placeholder="Maliyet"
+        requiered
+        id="Cost"
+        name="cost"
+        value=""
+      />
+      <h2>Satış Fiyatı:</h2>
+      <input
+        type="number"
+        placeholder="Satış Fiyatı"
+        requiered
+        id="Price"
+        name="price"
+        value=""
+      />
+      <h2>Categori:</h2>
+      <div class="category-select">
+        <select name="category" id="category">
+          {% for cate in categories %}
+          <option value="{{ cate.category }}">{{ cate.category }}</option>
+          {% endfor %}
+        </select>
+        <a
+          class="add-product square"
+          title="Yeni kategori ekle"
+          href="{% url 'stock_control:add_item' %}"
+          style="
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+          "
+        >
+          <span class="material-icons-sharp">add</span>
+        </a>
+      </div>
+      <p>Bu tuşa basarak categoriyi onaylamış olacaksınız.</p>
+      <input type="submit" method="POST" value="Onayla" />
+    </form>
+    {% if success %}
+    <h2 class="success">Ürün Başarıyla Oluşturulmuştur.</h2>
+    {% elif error %}
+    <h2 class="danger">Lütfen Bütün Alanları Doldurunuz</h2>
+    {% endif %}
+  </div>
+  <div class="example-display">
+    <div class="item-view">
+      <div class="sales">
+        <span class="material-icons-sharp" id="category-icon">inventory_2</span>
+        <div class="middle">
+          <div class="lef">
+            <h3 id="name-display">Ürün adı</h3>
+            <h1 id="price-display">Miktar / Maliyet</h1>
+          </div>
+          <div class="progress">
+            <div class="number">
+              <p>{{last_id}}</p>
+            </div>
+          </div>
+        </div>
+        <small class="text-muted" id="category-label">Kategori</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block additional_scripts %}
+<script type="text/javascript" src="{% static 'js/item_display.js' %}"></script>
+{% endblock %} {% endblock %}
